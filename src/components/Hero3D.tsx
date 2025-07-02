@@ -1,7 +1,7 @@
 
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, OrbitControls, Float, Text3D, MeshDistortMaterial, Stars, Ring } from '@react-three/drei';
+import { Sphere, OrbitControls, Float, MeshDistortMaterial, Stars } from '@react-three/drei';
 import * as THREE from 'three';
 
 function AnimatedSphere() {
@@ -34,9 +34,10 @@ function AnimatedSphere() {
       </Float>
       
       <Float speed={2} rotationIntensity={2} floatIntensity={1}>
-        <Ring ref={ringRef} args={[3, 3.2, 32]} position={[-2, 1, 0]}>
+        <mesh ref={ringRef} position={[-2, 1, 0]}>
+          <ringGeometry args={[3, 3.2, 32]} />
           <meshBasicMaterial color="#64748B" transparent opacity={0.6} />
-        </Ring>
+        </mesh>
       </Float>
       
       <Float speed={1} rotationIntensity={0.5} floatIntensity={3}>
@@ -51,10 +52,10 @@ function AnimatedSphere() {
 function ParticleField() {
   const points = useMemo(() => {
     const temp = [];
-    for (let i = 0; i < 300; i++) {
-      temp.push((Math.random() - 0.5) * 25);
-      temp.push((Math.random() - 0.5) * 25);
-      temp.push((Math.random() - 0.5) * 25);
+    for (let i = 0; i < 200; i++) {
+      temp.push((Math.random() - 0.5) * 20);
+      temp.push((Math.random() - 0.5) * 20);
+      temp.push((Math.random() - 0.5) * 20);
     }
     return new Float32Array(temp);
   }, []);
@@ -85,11 +86,11 @@ function ParticleField() {
 
 function FloatingCubes() {
   const cubes = useMemo(() => {
-    return Array.from({ length: 8 }, (_, i) => ({
+    return Array.from({ length: 6 }, (_, i) => ({
       position: [
-        (Math.random() - 0.5) * 15,
-        (Math.random() - 0.5) * 15,
-        (Math.random() - 0.5) * 15
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 12
       ] as [number, number, number],
       scale: Math.random() * 0.5 + 0.2,
       speed: Math.random() * 0.02 + 0.01
@@ -101,9 +102,9 @@ function FloatingCubes() {
       {cubes.map((cube, index) => (
         <Float
           key={index}
-          speed={cube.speed * 50}
-          rotationIntensity={2}
-          floatIntensity={1}
+          speed={cube.speed * 30}
+          rotationIntensity={1}
+          floatIntensity={0.5}
         >
           <mesh position={cube.position} scale={cube.scale}>
             <boxGeometry args={[1, 1, 1]} />
@@ -111,7 +112,7 @@ function FloatingCubes() {
               color={index % 2 === 0 ? "#00F5FF" : "#64748B"} 
               wireframe 
               transparent 
-              opacity={0.3} 
+              opacity={0.4} 
             />
           </mesh>
         </Float>
@@ -123,8 +124,12 @@ function FloatingCubes() {
 export default function Hero3D() {
   return (
     <div className="absolute inset-0 z-0">
-      <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
-        <ambientLight intensity={0.2} />
+      <Canvas 
+        camera={{ position: [0, 0, 8], fov: 60 }}
+        gl={{ antialias: true, alpha: true }}
+        dpr={[1, 2]}
+      >
+        <ambientLight intensity={0.3} />
         <pointLight position={[10, 10, 10]} intensity={1} color="#00F5FF" />
         <pointLight position={[-10, -10, -10]} intensity={0.5} color="#64748B" />
         <spotLight
@@ -135,7 +140,7 @@ export default function Hero3D() {
           color="#00F5FF"
         />
         
-        <Stars radius={100} depth={50} count={1000} factor={4} saturation={0} fade speed={1} />
+        <Stars radius={100} depth={50} count={800} factor={4} saturation={0} fade speed={1} />
         
         <AnimatedSphere />
         <ParticleField />
@@ -145,7 +150,7 @@ export default function Hero3D() {
           enableZoom={false}
           enablePan={false}
           autoRotate
-          autoRotateSpeed={0.5}
+          autoRotateSpeed={0.3}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
