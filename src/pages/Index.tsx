@@ -41,7 +41,7 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-black overflow-hidden">
       <Suspense fallback={
-        <div className="text-cyan-400 text-xl">Loading 3D scene...</div>
+        <div className="text-cyan-400 text-xl animate-pulse">Loading 3D scene...</div>
       }>
         <Hero3D />
       </Suspense>
@@ -242,18 +242,32 @@ function Footer() {
 }
 
 export default function Index() {
-  console.log('Index page rendering');
+  console.log('Index page rendering - Start');
   
-  return (
-    <main className="bg-black text-white min-h-screen overflow-x-hidden">
-      <HeroSection />
-      <FeaturesSection />
-      <Suspense fallback={<div className="text-cyan-400 p-8">Loading workflow...</div>}>
-        <WorkflowVisualization />
-      </Suspense>
-      <Suspense fallback={<div className="text-cyan-400 p-8">Loading demo...</div>}>
-        <InteractiveDemo />
-      </Suspense>
-    </main>
-  );
+  try {
+    return (
+      <main className="bg-black text-white min-h-screen overflow-x-hidden">
+        <HeroSection />
+        <FeaturesSection />
+        <Suspense fallback={<div className="text-cyan-400 p-8">Loading workflow...</div>}>
+          <WorkflowVisualization />
+        </Suspense>
+        <Suspense fallback={<div className="text-cyan-400 p-8">Loading demo...</div>}>
+          <InteractiveDemo />
+        </Suspense>
+        <TestimonialsSection />
+        <Footer />
+      </main>
+    );
+  } catch (error) {
+    console.error('Error in Index component:', error);
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl text-cyan-400 mb-4">Authexa</h1>
+          <p className="text-xl text-slate-300">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 }
