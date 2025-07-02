@@ -36,9 +36,13 @@ const features = [
 ];
 
 function HeroSection() {
+  console.log('HeroSection rendering');
+  
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-black overflow-hidden">
-      <Suspense fallback={<div className="text-cyan-400">Loading 3D scene...</div>}>
+      <Suspense fallback={
+        <div className="text-cyan-400 text-xl">Loading 3D scene...</div>
+      }>
         <Hero3D />
       </Suspense>
       
@@ -88,6 +92,8 @@ function HeroSection() {
 }
 
 function FeaturesSection() {
+  console.log('FeaturesSection rendering');
+  
   return (
     <section className="py-24 bg-gradient-to-b from-black to-slate-950">
       <div className="max-w-7xl mx-auto px-6">
@@ -236,14 +242,18 @@ function Footer() {
 }
 
 export default function Index() {
+  console.log('Index page rendering');
+  
   return (
     <main className="bg-black text-white min-h-screen overflow-x-hidden">
       <HeroSection />
       <FeaturesSection />
-      <WorkflowVisualization />
-      <InteractiveDemo />
-      <TestimonialsSection />
-      <Footer />
+      <Suspense fallback={<div className="text-cyan-400 p-8">Loading workflow...</div>}>
+        <WorkflowVisualization />
+      </Suspense>
+      <Suspense fallback={<div className="text-cyan-400 p-8">Loading demo...</div>}>
+        <InteractiveDemo />
+      </Suspense>
     </main>
   );
 }

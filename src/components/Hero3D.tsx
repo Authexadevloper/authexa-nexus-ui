@@ -6,16 +6,11 @@ import * as THREE from 'three';
 
 function AnimatedSphere() {
   const meshRef = useRef<THREE.Mesh>(null);
-  const ringRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.x = state.clock.elapsedTime * 0.3;
       meshRef.current.rotation.y = state.clock.elapsedTime * 0.2;
-    }
-    if (ringRef.current) {
-      ringRef.current.rotation.x = state.clock.elapsedTime * 0.1;
-      ringRef.current.rotation.z = state.clock.elapsedTime * 0.15;
     }
   });
 
@@ -33,13 +28,6 @@ function AnimatedSphere() {
         </Sphere>
       </Float>
       
-      <Float speed={2} rotationIntensity={2} floatIntensity={1}>
-        <mesh ref={ringRef} position={[-2, 1, 0]}>
-          <ringGeometry args={[3, 3.2, 32]} />
-          <meshBasicMaterial color="#64748B" transparent opacity={0.6} />
-        </mesh>
-      </Float>
-      
       <Float speed={1} rotationIntensity={0.5} floatIntensity={3}>
         <Sphere args={[0.5, 32, 32]} position={[-3, -2, 1]}>
           <meshBasicMaterial color="#0EA5E9" transparent opacity={0.8} />
@@ -49,13 +37,13 @@ function AnimatedSphere() {
   );
 }
 
-function ParticleField() {
+function SimpleParticles() {
   const points = useMemo(() => {
     const temp = [];
-    for (let i = 0; i < 200; i++) {
-      temp.push((Math.random() - 0.5) * 20);
-      temp.push((Math.random() - 0.5) * 20);
-      temp.push((Math.random() - 0.5) * 20);
+    for (let i = 0; i < 100; i++) {
+      temp.push((Math.random() - 0.5) * 15);
+      temp.push((Math.random() - 0.5) * 15);
+      temp.push((Math.random() - 0.5) * 15);
     }
     return new Float32Array(temp);
   }, []);
@@ -65,7 +53,6 @@ function ParticleField() {
   useFrame((state) => {
     if (particlesRef.current) {
       particlesRef.current.rotation.y = state.clock.elapsedTime * 0.05;
-      particlesRef.current.rotation.x = state.clock.elapsedTime * 0.02;
     }
   });
 
@@ -79,45 +66,8 @@ function ParticleField() {
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial size={0.05} color="#00F5FF" transparent opacity={0.6} />
+      <pointsMaterial size={0.03} color="#00F5FF" transparent opacity={0.6} />
     </points>
-  );
-}
-
-function FloatingCubes() {
-  const cubes = useMemo(() => {
-    return Array.from({ length: 6 }, (_, i) => ({
-      position: [
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 12
-      ] as [number, number, number],
-      scale: Math.random() * 0.5 + 0.2,
-      speed: Math.random() * 0.02 + 0.01
-    }));
-  }, []);
-
-  return (
-    <>
-      {cubes.map((cube, index) => (
-        <Float
-          key={index}
-          speed={cube.speed * 30}
-          rotationIntensity={1}
-          floatIntensity={0.5}
-        >
-          <mesh position={cube.position} scale={cube.scale}>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshBasicMaterial 
-              color={index % 2 === 0 ? "#00F5FF" : "#64748B"} 
-              wireframe 
-              transparent 
-              opacity={0.4} 
-            />
-          </mesh>
-        </Float>
-      ))}
-    </>
   );
 }
 
@@ -132,19 +82,11 @@ export default function Hero3D() {
         <ambientLight intensity={0.3} />
         <pointLight position={[10, 10, 10]} intensity={1} color="#00F5FF" />
         <pointLight position={[-10, -10, -10]} intensity={0.5} color="#64748B" />
-        <spotLight
-          position={[0, 15, 5]}
-          angle={0.3}
-          penumbra={1}
-          intensity={0.5}
-          color="#00F5FF"
-        />
         
-        <Stars radius={100} depth={50} count={800} factor={4} saturation={0} fade speed={1} />
+        <Stars radius={100} depth={50} count={500} factor={4} saturation={0} fade speed={1} />
         
         <AnimatedSphere />
-        <ParticleField />
-        <FloatingCubes />
+        <SimpleParticles />
         
         <OrbitControls
           enableZoom={false}
