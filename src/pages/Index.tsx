@@ -48,25 +48,25 @@ function HeroSection() {
 function TestimonialsSection() {
   const testimonials = [
     {
-      quote: "Authexa's AI automation reduced our incident response time by 95%. The autonomous healing capabilities are revolutionary.",
-      author: "Dr. Sarah Chen",
-      title: "Chief Technology Officer",
-      company: "TechCorp Industries - Fortune 100",
-      metric: "95% faster incident response"
+      quote: "Authexa's automation platform transformed our IT operations. The intelligent workflow optimization reduced our incident response time significantly.",
+      author: "David Park",
+      title: "IT Director",
+      company: "TechFlow Solutions",
+      metric: "75% faster response times"
     },
     {
-      quote: "The zero-touch deployment system handles our 50,000+ endpoints flawlessly. It's like having a team of experts working 24/7.",
-      author: "Michael Rodriguez",
-      title: "VP of Infrastructure",
-      company: "GlobalTech Solutions",
-      metric: "50,000+ endpoints managed"
+      quote: "The deployment automation handles our infrastructure seamlessly. It's like having a dedicated DevOps team working around the clock.",
+      author: "Sarah Mitchell",
+      title: "VP of Engineering",
+      company: "CloudFirst Technologies",
+      metric: "Zero deployment failures"
     },
     {
-      quote: "Their predictive system healing prevented over 10,000 potential outages last quarter. The ROI is extraordinary.",
-      author: "Jennifer Park",
-      title: "Director of IT Operations",
-      company: "Enterprise Financial Services",
-      metric: "10,000+ outages prevented"
+      quote: "Their predictive monitoring caught issues we didn't even know were coming. The proactive approach has been game-changing for our uptime.",
+      author: "Marcus Chen",
+      title: "Head of Infrastructure",
+      company: "InnovateTech Group",
+      metric: "99.8% system availability"
     }
   ];
 
@@ -78,7 +78,7 @@ function TestimonialsSection() {
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
         >
-          Trusted by Industry Leaders
+          What Our Clients Say
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
