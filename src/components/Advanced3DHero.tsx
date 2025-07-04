@@ -16,13 +16,26 @@ function FloatingGeometry({ position, color, type = 'sphere', speed = 1 }: any) 
     }
   });
 
-  const GeometryComponent = type === 'box' ? Box : type === 'torus' ? Torus : Sphere;
-  const args = type === 'box' ? [1, 1, 1] : type === 'torus' ? [0.8, 0.3, 16, 32] : [0.8, 32, 32];
+  if (type === 'box') {
+    return (
+      <Box ref={meshRef} args={[1, 1, 1]} position={position}>
+        <meshStandardMaterial color={color} wireframe transparent opacity={0.7} />
+      </Box>
+    );
+  }
+
+  if (type === 'torus') {
+    return (
+      <Torus ref={meshRef} args={[0.8, 0.3, 16, 32]} position={position}>
+        <meshStandardMaterial color={color} wireframe transparent opacity={0.7} />
+      </Torus>
+    );
+  }
 
   return (
-    <GeometryComponent ref={meshRef} args={args} position={position}>
+    <Sphere ref={meshRef} args={[0.8, 32, 32]} position={position}>
       <meshStandardMaterial color={color} wireframe transparent opacity={0.7} />
-    </GeometryComponent>
+    </Sphere>
   );
 }
 
