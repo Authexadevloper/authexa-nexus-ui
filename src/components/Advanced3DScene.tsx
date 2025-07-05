@@ -7,7 +7,6 @@ import * as THREE from 'three';
 
 function RotatingEarth() {
   const meshRef = useRef<THREE.Mesh>(null);
-  const { viewport } = useThree();
   
   useFrame((state) => {
     if (meshRef.current) {
@@ -17,14 +16,12 @@ function RotatingEarth() {
   });
 
   return (
-    <Sphere ref={meshRef} args={[2.5, 64, 64]} position={[0, 0, -5]}>
+    <Sphere ref={meshRef} args={[2.5, 32, 32]} position={[0, 0, -5]}>
       <meshStandardMaterial 
         color="#00F5FF" 
         wireframe 
         transparent 
         opacity={0.3}
-        emissive="#00F5FF"
-        emissiveIntensity={0.1}
       />
     </Sphere>
   );
@@ -59,10 +56,10 @@ function RoboticOrbiters() {
       </group>
       
       <group ref={group2}>
-        <Torus args={[0.8, 0.2, 16, 32]} position={[0, 3, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <Torus args={[0.8, 0.2, 16, 32]} position={[0, 3, 0]}>
           <meshStandardMaterial color="#45B7D1" wireframe transparent opacity={0.5} />
         </Torus>
-        <Torus args={[1.2, 0.15, 16, 32]} position={[0, -3, 0]} rotation={[0, Math.PI / 2, 0]}>
+        <Torus args={[1.2, 0.15, 16, 32]} position={[0, -3, 0]}>
           <meshStandardMaterial color="#96CEB4" wireframe transparent opacity={0.5} />
         </Torus>
       </group>
@@ -86,7 +83,6 @@ function ScrollControlledCamera() {
   useFrame(() => {
     const progress = scrollYProgress.get();
     
-    // Zoom in and out based on scroll
     camera.position.z = 8 + Math.sin(progress * Math.PI * 4) * 3;
     camera.position.y = Math.cos(progress * Math.PI * 2) * 2;
     camera.position.x = Math.sin(progress * Math.PI * 3) * 1.5;
@@ -100,7 +96,7 @@ function ScrollControlledCamera() {
 function Scene3D() {
   return (
     <>
-      <ambientLight intensity={0.2} />
+      <ambientLight intensity={0.4} />
       <pointLight position={[10, 10, 10]} intensity={1} color="#00F5FF" />
       <pointLight position={[-10, -10, -10]} intensity={0.8} color="#FF6B6B" />
       <pointLight position={[0, 10, -10]} intensity={0.6} color="#4ECDC4" />
@@ -108,8 +104,8 @@ function Scene3D() {
       <Stars 
         radius={100} 
         depth={50} 
-        count={2000} 
-        factor={6} 
+        count={1000} 
+        factor={4} 
         saturation={0.5} 
         fade 
         speed={0.5}
@@ -145,9 +141,12 @@ export default function Advanced3DScene() {
         gl={{ 
           antialias: true, 
           alpha: true,
-          powerPreference: "high-performance"
+          powerPreference: "default"
         }}
-        dpr={Math.min(window.devicePixelRatio, 2)}
+        dpr={[1, 2]}
+        onCreated={({ gl }) => {
+          gl.setClearColor('#0B1426', 0);
+        }}
       >
         <Scene3D />
       </Canvas>
