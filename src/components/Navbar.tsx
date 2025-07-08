@@ -29,7 +29,7 @@ export default function Navbar() {
               className="relative"
             >
               <img 
-                src="/lovable-uploads/ebc0cc5c-ee6c-4c12-a43e-ee9ef52e068f.png" 
+                src="/lovable-uploads/0ce76609-2adc-44e4-9208-f73401fc60f2.png" 
                 alt="Authexa Logo" 
                 className="h-10 w-auto filter drop-shadow-lg"
               />

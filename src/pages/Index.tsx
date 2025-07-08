@@ -1,3 +1,4 @@
+
 import { Suspense } from 'react';
 import { motion } from 'framer-motion';
 import Interactive3DCapabilities from '@/components/Interactive3DCapabilities';
@@ -143,7 +144,7 @@ function Footer() {
         <div className="border-t border-[#64748B]/20 pt-8 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <img 
-              src="/lovable-uploads/ebc0cc5c-ee6c-4c12-a43e-ee9ef52e068f.png" 
+              src="/lovable-uploads/0ce76609-2adc-44e4-9208-f73401fc60f2.png" 
               alt="Authexa Logo" 
               className="h-8 w-auto opacity-80"
             />
