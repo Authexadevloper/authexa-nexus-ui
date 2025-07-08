@@ -43,9 +43,9 @@ function InteractiveGlobe() {
 }
 
 function FloatingRobots() {
-  const robot1 = useRef<THREE.Mesh>(null);
-  const robot2 = useRef<THREE.Mesh>(null);
-  const robot3 = useRef<THREE.Mesh>(null);
+  const robot1 = useRef<THREE.Group>(null);
+  const robot2 = useRef<THREE.Group>(null);
+  const robot3 = useRef<THREE.Group>(null);
   
   useFrame((state) => {
     if (robot1.current) {
