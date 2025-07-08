@@ -7,6 +7,7 @@ import InteractiveDemo from '@/components/InteractiveDemo';
 import DynamicBackground from '@/components/DynamicBackground';
 import Advanced3DScene from '@/components/Advanced3DScene';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import Navbar from '@/components/Navbar';
 
 function HeroSection() {
   return (
@@ -24,7 +25,7 @@ function HeroSection() {
       {/* Enhanced neural network grid pattern */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gMTAwIDAgTCAwIDAgMCAxMDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwRjVGRiIgc3Ryb2tlLXdpZHRoPSIwLjMiIG9wYWNpdHk9IjAuMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20" />
       
-      {/* Floating circuit elements */}
+      {/* Professional floating elements - removed emojis, using geometric shapes */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-3 h-3 bg-[#00F5FF] rounded-full animate-pulse shadow-lg shadow-cyan-400/50" />
         <div className="absolute top-40 right-20 w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-1000 shadow-lg shadow-purple-400/50" />
@@ -53,50 +54,10 @@ function HeroSection() {
       </div>
 
       <div className="relative z-10 text-center px-6 max-w-7xl mx-auto">
-        {/* Enlarged Logo with robotic effects */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.3, rotateY: -180 }}
-          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-          transition={{ duration: 1.5, type: "spring", stiffness: 100 }}
-          className="mb-12"
-        >
-          <div className="relative">
-            <motion.div
-              animate={{ 
-                boxShadow: [
-                  "0 0 30px #00F5FF40",
-                  "0 0 60px #00F5FF60", 
-                  "0 0 30px #00F5FF40"
-                ]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="inline-block p-6 rounded-2xl bg-gradient-to-br from-[#0B1426]/80 to-slate-800/80 border border-[#00F5FF]/30 backdrop-blur-sm"
-            >
-              <img 
-                src="/lovable-uploads/ebc0cc5c-ee6c-4c12-a43e-ee9ef52e068f.png" 
-                alt="Authexa Logo" 
-                className="h-32 w-auto mx-auto mb-6 filter drop-shadow-2xl"
-              />
-            </motion.div>
-            
-            {/* Orbiting elements around logo */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 pointer-events-none"
-            >
-              <div className="absolute top-0 left-1/2 w-3 h-3 bg-[#00F5FF] rounded-full -translate-x-1/2 -translate-y-6" />
-              <div className="absolute bottom-0 left-1/2 w-2 h-2 bg-purple-400 rounded-full -translate-x-1/2 translate-y-6" />
-              <div className="absolute left-0 top-1/2 w-2.5 h-2.5 bg-emerald-400 rounded-full -translate-x-6 -translate-y-1/2" />
-              <div className="absolute right-0 top-1/2 w-2 h-2 bg-orange-400 rounded-full translate-x-6 -translate-y-1/2" />
-            </motion.div>
-          </div>
-        </motion.div>
-
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7 }}
+          transition={{ duration: 1, delay: 0.5 }}
         >
           <h1 className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-[#00F5FF] to-purple-300 bg-clip-text text-transparent leading-tight font-mono">
             Orchestrating the Future with AI
@@ -200,6 +161,7 @@ function Footer() {
 export default function Index() {
   return (
     <main className="bg-[#0B1426] text-white min-h-screen overflow-x-hidden font-sans">
+      <Navbar />
       <HeroSection />
       <Interactive3DCapabilities />
       <Suspense fallback={<div className="text-[#00F5FF] p-8 text-center font-mono">Loading workflow visualization...</div>}>

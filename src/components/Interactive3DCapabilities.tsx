@@ -2,12 +2,13 @@
 import { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
+import { Database, Bot, Zap, Clipboard, BookOpen, Settings } from 'lucide-react';
 
 const capabilities = [
   {
     title: "Complete ITSM Self-Service Portal",
     description: "Full-featured service desk with incident tracking, service catalog, knowledge base, and asset management - just like enterprise solutions.",
-    icon: "🎯",
+    icon: Database,
     details: "Professional ITSM portal featuring dashboard analytics, automated ticket routing, SLA management, and comprehensive reporting capabilities.",
     color: "from-[#0B1426] to-[#00F5FF]/20",
     borderColor: "border-[#00F5FF]/30 hover:border-[#00F5FF]/60",
@@ -16,7 +17,7 @@ const capabilities = [
   {
     title: "AI Voice & Chat Support Agents",
     description: "Deploy intelligent conversational agents that handle support requests through voice calls and chat interfaces with natural language processing.",
-    icon: "🤖",
+    icon: Bot,
     details: "AI-powered support agents with context awareness, sentiment analysis, and seamless escalation to human agents when needed.",
     color: "from-[#0B1426] to-purple-500/20",
     borderColor: "border-purple-400/30 hover:border-purple-400/60",
@@ -25,7 +26,7 @@ const capabilities = [
   {
     title: "Automated Software Installation",
     description: "Zero-touch software deployment with intelligent script generation for Windows environments using voice or text commands.",
-    icon: "⚡",
+    icon: Zap,
     details: "Generate PowerShell and batch scripts automatically, handle software dependencies, and provide installation status tracking.",
     color: "from-[#0B1426] to-emerald-500/20",
     borderColor: "border-emerald-400/30 hover:border-emerald-400/60",
@@ -34,7 +35,7 @@ const capabilities = [
   {
     title: "Intelligent Incident Management",
     description: "Smart ticketing system with automated classification, priority assignment, and resolution tracking with real-time dashboards.",
-    icon: "📋",
+    icon: Clipboard,
     details: "Advanced incident lifecycle management with automated workflows, escalation rules, and comprehensive analytics dashboard.",
     color: "from-[#0B1426] to-orange-500/20",
     borderColor: "border-orange-400/30 hover:border-orange-400/60",
@@ -43,7 +44,7 @@ const capabilities = [
   {
     title: "Service Catalog & Knowledge Base",
     description: "Comprehensive service offerings with searchable knowledge articles, FAQs, and self-help resources for end users.",
-    icon: "📚",
+    icon: BookOpen,
     details: "Integrated service catalog with approval workflows, knowledge management system, and user-friendly self-service options.",
     color: "from-[#0B1426] to-[#00F5FF]/20",
     borderColor: "border-[#00F5FF]/30 hover:border-[#00F5FF]/60",
@@ -52,7 +53,7 @@ const capabilities = [
   {
     title: "Asset & Configuration Management",
     description: "Track and manage IT assets with automated discovery, configuration monitoring, and lifecycle management capabilities.",
-    icon: "🔧",
+    icon: Settings,
     details: "Complete CMDB with automated asset discovery, configuration tracking, and integration with incident management processes.",
     color: "from-[#0B1426] to-purple-500/20",
     borderColor: "border-purple-400/30 hover:border-purple-400/60",
@@ -184,15 +185,14 @@ export default function Interactive3DCapabilities() {
                 
                 <CardContent className="p-8 h-full flex flex-col relative z-10">
                   <motion.div 
-                    className="text-6xl mb-6 filter drop-shadow-lg"
+                    className="mb-6 p-3 rounded-lg bg-[#00F5FF]/20 border border-[#00F5FF]/30 w-fit"
                     animate={{ 
-                      scale: hoveredCard === index ? 1.3 : 1,
-                      rotate: hoveredCard === index ? [0, 10, -10, 0] : 0,
-                      filter: hoveredCard === index ? "drop-shadow(0 0 20px #00F5FF)" : "drop-shadow(0 0 0px transparent)"
+                      scale: hoveredCard === index ? 1.1 : 1,
+                      rotate: hoveredCard === index ? [0, 5, -5, 0] : 0,
                     }}
                     transition={{ type: "spring", stiffness: 300, duration: 0.6 }}
                   >
-                    {capability.icon}
+                    <capability.icon className="h-8 w-8 text-[#00F5FF]" />
                   </motion.div>
                   
                   <h3 className="text-2xl font-bold mb-4 text-white font-mono leading-tight">
