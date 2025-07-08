@@ -1,42 +1,35 @@
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, Stars, Text } from '@react-three/drei';
+import { Sphere, Stars } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
+import ErrorBoundary from './ErrorBoundary';
+import FallbackLanding from './FallbackLanding';
 
 function InteractiveGlobe() {
   const globeRef = useRef<THREE.Mesh>(null);
-  const [hovered, setHovered] = useState(false);
   
   useFrame((state) => {
     if (globeRef.current) {
-      globeRef.current.rotation.y += 0.005;
-      globeRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
-      
-      if (hovered) {
-        globeRef.current.scale.setScalar(1.1);
-      } else {
-        globeRef.current.scale.setScalar(1);
-      }
+      globeRef.current.rotation.y += 0.003; // Slower rotation
+      globeRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.05; // Gentler movement
     }
   });
 
   return (
     <Sphere 
       ref={globeRef}
-      args={[2, 32, 32]} 
+      args={[1.5, 16, 16]} // Reduced complexity
       position={[0, 0, 0]}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
     >
       <meshStandardMaterial 
         color="#00F5FF" 
         wireframe 
         transparent 
-        opacity={0.6}
+        opacity={0.4}
         emissive="#00F5FF"
-        emissiveIntensity={0.2}
+        emissiveIntensity={0.1}
       />
     </Sphere>
   );
@@ -45,59 +38,37 @@ function InteractiveGlobe() {
 function FloatingRobots() {
   const robot1 = useRef<THREE.Group>(null);
   const robot2 = useRef<THREE.Group>(null);
-  const robot3 = useRef<THREE.Group>(null);
   
   useFrame((state) => {
+    // Simplified animations
     if (robot1.current) {
-      robot1.current.position.x = Math.cos(state.clock.elapsedTime * 0.5) * 4;
-      robot1.current.position.y = Math.sin(state.clock.elapsedTime * 0.3) * 2;
-      robot1.current.rotation.y = state.clock.elapsedTime * 0.2;
+      robot1.current.position.x = Math.cos(state.clock.elapsedTime * 0.3) * 2;
+      robot1.current.position.y = Math.sin(state.clock.elapsedTime * 0.2) * 1;
+      robot1.current.rotation.y = state.clock.elapsedTime * 0.1;
     }
     
     if (robot2.current) {
-      robot2.current.position.x = Math.sin(state.clock.elapsedTime * 0.4) * 3;
-      robot2.current.position.z = Math.cos(state.clock.elapsedTime * 0.4) * 3;
-      robot2.current.rotation.z = state.clock.elapsedTime * 0.3;
-    }
-    
-    if (robot3.current) {
-      robot3.current.position.y = Math.cos(state.clock.elapsedTime * 0.6) * 3;
-      robot3.current.position.z = Math.sin(state.clock.elapsedTime * 0.5) * 2;
-      robot3.current.rotation.x = state.clock.elapsedTime * 0.4;
+      robot2.current.position.x = Math.sin(state.clock.elapsedTime * 0.2) * 2;
+      robot2.current.position.z = Math.cos(state.clock.elapsedTime * 0.2) * 2;
+      robot2.current.rotation.z = state.clock.elapsedTime * 0.1;
     }
   });
 
   return (
     <>
-      {/* Robot 1 - Cube with antennas */}
+      {/* Simplified Robot 1 - Basic cube */}
       <group ref={robot1}>
         <mesh>
-          <boxGeometry args={[0.3, 0.3, 0.3]} />
-          <meshStandardMaterial color="#FF6B6B" emissive="#FF6B6B" emissiveIntensity={0.1} />
-        </mesh>
-        <mesh position={[0, 0.25, 0]}>
-          <cylinderGeometry args={[0.02, 0.02, 0.2]} />
-          <meshStandardMaterial color="#FFD700" />
+          <boxGeometry args={[0.2, 0.2, 0.2]} />
+          <meshStandardMaterial color="#FF6B6B" emissive="#FF6B6B" emissiveIntensity={0.05} />
         </mesh>
       </group>
       
-      {/* Robot 2 - Sphere with rings */}
+      {/* Simplified Robot 2 - Basic sphere */}
       <group ref={robot2}>
         <mesh>
-          <sphereGeometry args={[0.2, 16, 16]} />
-          <meshStandardMaterial color="#4ECDC4" emissive="#4ECDC4" emissiveIntensity={0.1} />
-        </mesh>
-        <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.3, 0.02, 8, 16]} />
-          <meshStandardMaterial color="#FFD700" />
-        </mesh>
-      </group>
-      
-      {/* Robot 3 - Pyramid */}
-      <group ref={robot3}>
-        <mesh>
-          <coneGeometry args={[0.2, 0.4, 6]} />
-          <meshStandardMaterial color="#A855F7" emissive="#A855F7" emissiveIntensity={0.1} />
+          <sphereGeometry args={[0.15, 8, 8]} />
+          <meshStandardMaterial color="#4ECDC4" emissive="#4ECDC4" emissiveIntensity={0.05} />
         </mesh>
       </group>
     </>
@@ -112,13 +83,13 @@ function RobotScene3D() {
       <pointLight position={[-5, -5, -5]} intensity={0.5} color="#A855F7" />
       
       <Stars 
-        radius={50} 
-        depth={30} 
-        count={800} 
-        factor={3} 
-        saturation={0.8} 
+        radius={30} 
+        depth={20} 
+        count={200} 
+        factor={2} 
+        saturation={0.6} 
         fade 
-        speed={0.5}
+        speed={0.3}
       />
       
       <InteractiveGlobe />
@@ -132,22 +103,45 @@ interface RobotGlobeLandingProps {
 }
 
 export default function RobotGlobeLanding({ onEnter }: RobotGlobeLandingProps) {
+  const [show3D, setShow3D] = useState(false);
+
+  useEffect(() => {
+    // Progressive loading - show CSS version first, then attempt 3D
+    const timer = setTimeout(() => {
+      setShow3D(true);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Fallback to CSS-only version if needed
+  if (!show3D) {
+    return <FallbackLanding onEnter={onEnter} />;
+  }
+
   return (
     <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#0B1426] via-slate-900 to-[#0B1426] overflow-hidden">
-      {/* 3D Scene */}
-      <div className="absolute inset-0">
-        <Canvas 
-          camera={{ position: [0, 0, 8], fov: 60 }}
-          gl={{ 
-            antialias: false, 
-            alpha: true,
-            powerPreference: "default"
-          }}
-          dpr={1}
-        >
-          <RobotScene3D />
-        </Canvas>
-      </div>
+      {/* 3D Scene with Error Boundary */}
+      <ErrorBoundary fallback={<FallbackLanding onEnter={onEnter} />}>
+        <div className="absolute inset-0">
+          <Canvas 
+            camera={{ position: [0, 0, 8], fov: 60 }}
+            gl={{ 
+              antialias: false, 
+              alpha: true,
+              powerPreference: "low-power", // Prevent high-performance GPU usage
+              failIfMajorPerformanceCaveat: false, // Allow fallback
+              stencil: false,
+              depth: true,
+              logarithmicDepthBuffer: false
+            }}
+            dpr={Math.min(window.devicePixelRatio, 1.5)} // Limit DPR for performance
+            performance={{ min: 0.5 }} // Aggressive performance throttling
+          >
+            <RobotScene3D />
+          </Canvas>
+        </div>
+      </ErrorBoundary>
       
       {/* Content Overlay */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6">
@@ -189,7 +183,7 @@ export default function RobotGlobeLanding({ onEnter }: RobotGlobeLandingProps) {
           </motion.button>
           
           <div className="text-[#64748B] font-mono text-sm">
-            Click and drag the globe • Hover over robots
+            Interactive 3D Experience Loading...
           </div>
         </motion.div>
         
